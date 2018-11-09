@@ -4,14 +4,14 @@ QUEUE* create_queue(){
 	QUEUE* queue = (QUEUE*)malloc(sizeof(QUEUE));
 	if(!queue) return false;
 
-	queue->count = 0;
+	queue->count = 0;			// 스택과 다르게 한쪽에서 데이터 삽입하고, 한쪽에서 나오는 구조
 	queue->front = NULL;
 	queue->rear  = NULL;
 
 	return queue;
 }
 
-bool enqueue(QUEUE* queue, void* in){
+bool enqueue(QUEUE* queue, void* in){				// 데이터 삽입 
 	QUEUE_NODE* new_node = (QUEUE_NODE*)malloc(sizeof(QUEUE_NODE));
 	if(!new_node) return false;
 
@@ -31,7 +31,7 @@ bool enqueue(QUEUE* queue, void* in){
 	}
 }
 
-void* dequeue(QUEUE* queue){
+void* dequeue(QUEUE* queue){				// 데이터 
 	if(queue->count == 0) return false;
 
 	QUEUE_NODE* temp = queue->front;
