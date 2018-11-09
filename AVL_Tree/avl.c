@@ -35,7 +35,7 @@ T_NODE* add_avl(T_NODE* root ,int data, bool* success){
 		new_root->left = NULL;
 		new_root->right= NULL;
 		new_root->balance = EH;
-		
+
 		*success = true;
 		return new_root;
 	}
@@ -112,7 +112,7 @@ T_NODE* rotate_left(T_NODE* root){
 	//Balane factor update
 	BF_update(root);
 	BF_update(new_root);
-	
+
 	return new_root;
 }
 
@@ -124,7 +124,7 @@ T_NODE* rotate_right(T_NODE* root){
 	//Balane factor update
 	BF_update(root);
 	BF_update(new_root);
-	
+
 	return new_root;
 }
 
@@ -154,7 +154,7 @@ void postorder(T_NODE* root){
 
 bool AVL_del(AVL_TREE* avl, int data){
 	if(avl->count == 0) return false;
-	
+
 	T_NODE* newroot;
 	bool success;
 
@@ -199,7 +199,7 @@ T_NODE* del_avl(T_NODE* root, int data, bool* success){
 			root = root->right;
 			free(del_node);
 			root->balance = EH;
-			
+
 			*success = true;
 			return root;
 		}else if( root->right == NULL){
@@ -207,7 +207,7 @@ T_NODE* del_avl(T_NODE* root, int data, bool* success){
 			root = root->left;
 			free(del_node);
 			root->balance = EH;
-			
+
 			*success = true;
 			return root;
 		}*/else{			// right, left all exist!		// combine above two case!
@@ -238,7 +238,7 @@ void BF_update(T_NODE* root){
 		root->balance = LH;
 	else if(find_Hmax(root->left) < find_Hmax(root->right) )
 		root->balance = RH;
-	else	
+	else
 		root->balance = EH;
 }
 
