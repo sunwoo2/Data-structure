@@ -47,22 +47,22 @@ search_bst
 	}
 }
 
-T_NODE*	// Recursive!!!
+T_NODE*					// Point is Recursive!!!
 add_bst
 (T_NODE* root, int data)
 {
-	if(root == NULL){ //leaf
+	if(root == NULL){ 			//leaf node
 		T_NODE* newPtr = (T_NODE*)malloc(sizeof(T_NODE));
 		if(!newPtr) return false;
 		newPtr->left = NULL;
 		newPtr->right= NULL;
-		newPtr->data = data; // realy data insert
-		return newPtr; //newby
+		newPtr->data = data;					 // realy data insert
+		return newPtr;					 //newby
 	}
 	if(data < root->data){
 		root->left = add_bst(root->left, data);
 		return root;
-	} else{	// if, data == root->data?? -> nomally added 
+	} else{					// if, data == root->data?? -> nomally added 
 		root->right = add_bst(root->right, data);
 		return root;
 	}
@@ -115,7 +115,7 @@ BST_insert
 }
 
 T_NODE*
-del_bst		// it's mine
+del_bst		
 (T_NODE* root, int data, bool* success)
 {
 	if(root == NULL){		// there is no delete_data
@@ -129,7 +129,7 @@ del_bst		// it's mine
 	} else if(data > root->data){
 		root->right = del_bst(root->right, data, success);
 		return root;
-	} else{		// matched!!
+	} else{					// matched!!
 		T_NODE* del_node;
 		if(root->left == NULL){
 			del_node = root;
@@ -143,7 +143,7 @@ del_bst		// it's mine
 			free(del_node);
 			*success = true;
 			return root;
-		} else{
+		} else{						// left, right 노드 다 존재 할때
 			T_NODE* search;
 			search = find_largest_node(root->left);		
 //			search = root->left;					// when there is no find_ function 
@@ -173,44 +173,4 @@ BST_del
 			tree->root = NULL;
 	}
 	return success;	
-}
-
-T_NODE*
-delete_bst		// this class method
-(T_NODE* root, int data, bool* success)
-{
-	if(root == NULL){		// there is no delete_data
-		*success = false;
-		return NULL;
-	}
-	
-	if(data < root->data){
-		root->left = del_bst(root->left, data, success);
-	} else if(data > root->data){
-		root->right = del_bst(root->right, data, success);
-	} else{		// matched!!
-		T_NODE* del_node = root;
-		T_NODE* newRoot;
-		if(root->left == NULL){
-			newRoot = root->right;
-			free(del_node);
-			*success = true;
-			return newRoot;
-		} else if(root->right == NULL){
-			newRoot = root->left;
-			free(del_node);
-			*success = true;
-			return newRoot;
-		} else{
-			T_NODE* search;
-			search = find_largest_node(root->left);
-//			search = root;					// when there is no find_ function 
-//			while (search->right != NULL)
-//				search = search->right;		
-			root->data = search->data;
-			free(search);
-			*success = true;
-		}
-	}
-	return root;
 }
