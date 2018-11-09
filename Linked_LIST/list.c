@@ -1,4 +1,4 @@
-#include "list.h"
+#include "list.h"					// linked_list는 queue에서 순서(index)만 넣어주면 됌
 
 LLIST* create_list(){
 	LLIST* list = (LLIST*)malloc(sizeof(LLIST));
@@ -12,7 +12,7 @@ LLIST* create_list(){
 	return list;
 }
 
-bool add_node_at(LLIST* list, unsigned int index, void* in){
+bool add_node_at(LLIST* list, unsigned int index, void* in){			// index맞춰서 삽입
 	if(list->count < index) return false;
 
 	NODE* new_node = (NODE*)malloc(sizeof(NODE));
@@ -51,7 +51,7 @@ bool add_node_at(LLIST* list, unsigned int index, void* in){
 	}
 }
 
-bool del_node_at(LLIST* list, unsigned int index){
+bool del_node_at(LLIST* list, unsigned int index){			// index맞춰서 삭제
 	if(list->count == 0) return false;
 	if(list->count-1 < index) return false;
 
@@ -72,7 +72,7 @@ bool del_node_at(LLIST* list, unsigned int index){
 		return true;
 	}
 
-	NODE* pre = list->front;
+	NODE* pre = list->front;			// index 찾기위해 출발
 	list->pos = list->front->next;
 	int iter = 1;
 	while(iter != index){
@@ -98,7 +98,7 @@ bool del_node_at(LLIST* list, unsigned int index){
 
 }
 
-void* read_node_at(LLIST* list, unsigned int index){
+void* read_node_at(LLIST* list, unsigned int index){			// index에 해당하는 data 읽기
 	if(list->count == 0) return false;
 	if(index > list->count-1) return false;
 
