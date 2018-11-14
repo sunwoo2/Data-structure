@@ -1,4 +1,7 @@
 # Data-structure (쉽고 간결한 데이터구조)
+# 데이터구조
+# C로 구현한 데이터구조
+# AVL_TREE
 Data structure by C
 
 C로 구현한 데이터 구조입니다.
