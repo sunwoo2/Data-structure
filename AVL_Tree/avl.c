@@ -10,7 +10,7 @@ AVL_TREE* create_avl(){
 	return tree;
 }
 
-int find_Hmax(T_NODE* root){
+int find_Hmax(T_NODE* root){			// 루트 기준 가장큰 Height 찾기
 	int Hmax=0;
 	
 	while(root != NULL){
@@ -26,7 +26,7 @@ int find_Hmax(T_NODE* root){
 	return Hmax;
 }
 
-int find_Hmin(T_NODE* root){
+int find_Hmin(T_NODE* root){			// 루트 기준 가장작은 Height 찾기
 	int Hmin=0;
 	
 	while(root != NULL){
@@ -42,7 +42,7 @@ int find_Hmin(T_NODE* root){
 	return Hmin;
 }
 
-bool check_avl(T_NODE* root){
+bool check_avl(T_NODE* root){			// 루트 기준 AVL_TREE 구조를 만족하는지 체크
 	int HL, HR;
 
 	HL = find_Hmax(root->left);
@@ -54,7 +54,7 @@ bool check_avl(T_NODE* root){
 		return false;
 }
 
-void BF_update(T_NODE* root){
+void BF_update(T_NODE* root){					// 루트노드의 BF 업데이트
 	if(find_Hmax(root->left) > find_Hmax(root->right))
 		root->BF = LH;
 	else if(find_Hmax(root->left) < find_Hmax(root->right))
@@ -118,10 +118,10 @@ T_NODE* add_node(T_NODE* root, int data, bool* success){
 		root->left = add_node(root->left, data, success);
 		BF_update(root);
 		
-		if(!check_avl(root)){		// Invalid AVL!
-			if(root->left->BF == LH)		// case1) LH-LH
+		if(!check_avl(root)){					// Invalid AVL!
+			if(root->left->BF == LH)				// case1) LH-LH
 				root = rotate_right(root);
-			else{					// case2) LH-RH
+			else{							// case2) LH-RH
 				root->left = rotate_left(root->left);
 				root = rotate_right(root);
 			}
@@ -133,10 +133,10 @@ T_NODE* add_node(T_NODE* root, int data, bool* success){
 		root->right = add_node(root->right, data, success);
 		BF_update(root);
 		
-		if(!check_avl(root)){		// Invalid AVL!
-			if(root->right->BF == RH)		// case3) RH-RH
-				root = rotate_left(root);
-			else{					// case4) RH-LH
+		if(!check_avl(root)){					// Invalid AVL!
+			if(root->right->BF == RH)				// case3) RH-RH
+				root = rotate_left(root);	
+			else{							// case4) RH-LH
 				root->right = rotate_right(root->right);
 				root = rotate_left(root);
 			}
@@ -148,7 +148,7 @@ T_NODE* add_node(T_NODE* root, int data, bool* success){
 }
 
 bool del_avl(AVL_TREE* tree, int data){
-	if(tree->count == 0){
+	if(tree->count == 0){				
 		printf("there is no data!\n");
 		return false;
 	}
@@ -168,7 +168,7 @@ bool del_avl(AVL_TREE* tree, int data){
 T_NODE* del_node(T_NODE* root, int data, bool* success){
 	*success = false;
 	
-	if(root == NULL){		// We cannot found data in this tree!
+	if(root == NULL){				// We cannot found data in this tree!
 		printf("there is no data!\n");
 		return NULL;
 	}
@@ -177,10 +177,10 @@ T_NODE* del_node(T_NODE* root, int data, bool* success){
 		root->left = del_node(root->left, data, success);
 		BF_update(root);
 		
-		if(!check_avl(root)){		// Invalid AVL!
-			if(root->right->BF == RH)		// case3) RH-RH
+		if(!check_avl(root)){					// Invalid AVL!, 삭제하고나서 AVL구조를 벗어난경우 다시 설정해주기
+			if(root->right->BF == RH)				// case3) RH-RH
 				root = rotate_left(root);
-			else{					// case4) RH-LH
+			else{							// case4) RH-LH
 				root->right = rotate_right(root->right);
 				root = rotate_left(root);
 			}
@@ -192,10 +192,10 @@ T_NODE* del_node(T_NODE* root, int data, bool* success){
 		root->right = del_node(root->right, data, success);
 		BF_update(root);
 
-		if(!check_avl(root)){		// Invalid AVL!
-			if(root->left->BF == LH)		// case1) LH-LH
+		if(!check_avl(root)){					// Invalid AVL!
+			if(root->left->BF == LH)				// case1) LH-LH
 				root = rotate_right(root);
-			else{					// case2) LH-RH
+			else{							// case2) LH-RH
 				root->left = rotate_left(root->left);
 				root = rotate_right(root);
 			}
@@ -203,7 +203,7 @@ T_NODE* del_node(T_NODE* root, int data, bool* success){
 	
 		*success = true;
 		return root;
-	}else{			// match!
+	}else{							// match!
 		T_NODE* temp = root;
 		if(root->left == NULL){
 			root = root->right;
@@ -217,9 +217,9 @@ T_NODE* del_node(T_NODE* root, int data, bool* success){
 
 			*success = true;
 			return root;
-		}else{		// left,right all exist!
+		}else{						// left,right all exist!
 			T_NODE* search;
-			if(root->BF == LH){
+			if(root->BF == LH){			// 삭제할 데이터노드의 left Height가 더 큰경우
 				search = root->left;
 				while(search->right != NULL)
 					search = search->right;
@@ -229,7 +229,7 @@ T_NODE* del_node(T_NODE* root, int data, bool* success){
 				BF_update(root);
 				*success = true;
 				return root;
-			}else{		// RH or EH (including EH is no problem!)
+			}else{					// right Height가 큰경우와 EH인 경우(leaf node일 경우 까지 포함)
 				search = root->right;
 				while(search->left != NULL)
 					search = search->left;
@@ -268,7 +268,7 @@ void postorder(T_NODE* root){
 	}
 }
 
-void preorder_BF(T_NODE* root){
+void preorder_BF(T_NODE* root){				// AVL_Tree 확인 하는 과정에서 사용할려고 만듬
 	if(root != NULL){
 		printf("%d ", root->BF);
 		preorder_BF(root->left);
