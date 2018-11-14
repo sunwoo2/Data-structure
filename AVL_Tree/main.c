@@ -1,6 +1,6 @@
 #include "avl.h"
 
-int main(){
+int main(){					// 자유롭게 AVL_TREE를 구현해보기 
 	int b = 5;
 
 	AVL_TREE* t1 = create_avl();
