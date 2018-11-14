@@ -1,31 +1,35 @@
 #include "avl.h"
 
 int main(){
-	int a[1000];
+	int b = 5;
 
-	AVL_TREE* a1 = create_avl();
+	AVL_TREE* t1 = create_avl();
+	
+	add_avl(t1, 15);
+	add_avl(t1, 7);
+	add_avl(t1, 20);
+	add_avl(t1, 3);
+	add_avl(t1, 17);
+	add_avl(t1, 10);
+	add_avl(t1, 25);
+	add_avl(t1, 1);
+	add_avl(t1, 5);
+	add_avl(t1, 8);
+	add_avl(t1, 13);
+	add_avl(t1, 16);
+	add_avl(t1, 18);
+	add_avl(t1, 23);
+	add_avl(t1, 27);
+	add_avl(t1, 4);
+	add_avl(t1, 30);
+	add_avl(t1, 24);
 
-	AVL_add(a1, 10);
-	AVL_add(a1, 15);
-	AVL_add(a1, 5);
-	AVL_add(a1, 2);
-	AVL_add(a1, 7);
-	AVL_add(a1, 17);
-	AVL_add(a1, 12);
-	AVL_add(a1, 8);
-	AVL_add(a1, 1);
-	AVL_add(a1, 6);
-	AVL_add(a1, 9);
+	del_avl(t1, 10);
+	del_avl(t1, 25);
 
-	AVL_del(a1, 7);
-
-	printf("a1's root_data : %d\n", a1->root->data);
-	printf("a1's Hmax : %d\n", find_Hmax(a1->root));
-	printf("a1's Hmin : %d\n", find_Hmin(a1->root));
-	printf("a1's root_balance : %d\n", a1->root->balance);
-
-	preorder(a1->root); printf("\n");
-	inorder(a1->root); printf("\n");
+	printf("t1's size: %d\n", t1->count);
+	preorder(t1->root); printf("\n");
+	preorder_BF(t1->root); printf("\n");
 
 	return 0;
 }
