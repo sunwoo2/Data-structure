@@ -6,9 +6,6 @@ int main(){
 	BST_insert(t1, i);
 	bool success;
 
-//	for(i=0; i<6; i++){
-//		BST_insert(t1, a[5-i]);	//t1->root = add_bst(t1->root, a[5-i]);				// for-loop Success!
-//	}
 	BST_insert(t1, 10);
 	BST_insert(t1, 15);
 	BST_insert(t1, 5);
@@ -18,12 +15,6 @@ int main(){
 	BST_insert(t1, 3);
 	BST_insert(t1, 6);
 	BST_insert(t1, 8);
-//	t1->root = add_bst(t1->root, a[0]);					// this is Error!!! Why???
-//	t1->root = add_bst(t1->root, a[1]);
-//	t1->root = add_bst(t1->root, a[2]);
-//	t1->root = add_bst(t1->root, a[4]);
-//	t1->root = add_bst(t1->root, a[5]);
-//	t1->root = add_bst(t1->root, a[6]);
 
 	BST_del(t1, 5);
 
