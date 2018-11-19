@@ -1,6 +1,6 @@
 #include "heap.h"
 
-int main(){							// 자유롭게 Heap을 구현해 
+int main(){							// 자유롭게 Heap을 구현해 보십시오
 	int i;
 	HEAP* h1 = create_heap(100);
 
