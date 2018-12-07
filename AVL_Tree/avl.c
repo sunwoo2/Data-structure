@@ -43,13 +43,16 @@ int find_Hmin(T_NODE* root){			// 루트 기준 가장작은 Height 찾기
 }
 
 bool check_avl(T_NODE* root){			// 루트 기준 AVL_TREE 구조를 만족하는지 체크
+	if(root == NULL)
+		return true;
+	
 	int HL, HR;
 
 	HL = find_Hmax(root->left);
 	HR = find_Hmax(root->right);
 
 	if(abs(HL-HR) <= 1)
-		return true;	
+		return ( check_avl(root->left) && check_avl(root->right) );	
 	else
 		return false;
 }
